@@ -1,0 +1,147 @@
+# DATA DISCOVERY TOOL CONFIGURATION
+# 
+# ⚠️  SECURITY WARNING: This tool includes comprehensive exclusions for
+# sensitive files (SSH keys, browser cookies, passwords, certificates).
+# NEVER remove these exclusions unless you fully understand the security 
+# implications. Scanning sensitive files can trigger security software!
+#
+# The exclude_paths below are CRITICAL for preventing access to:
+# - SSH private keys and certificates
+# - Browser saved passwords and cookies  
+# - Password manager databases
+# - OS credential stores
+# - VPN configurations
+# - Development tool secrets (AWS/Azure/GCP credentials)
+
+[scan]
+sample_bytes = 4096
+max_file_size = 104857600
+skip_hash_size = 1073741824
+exclude_paths = [
+    # System directories
+    "/System",
+    "/Library",
+    "/Applications",
+    "/usr",
+    "/opt",
+    "/private",
+    "/tmp",
+    "/var",
+    'C:\Windows',
+    'C:\Program Files',
+    'C:\Program Files (x86)',
+    'C:\ProgramData',
+    'C:\Users\Public',
+    
+    # Development artifacts
+    ".cache",
+    ".git",
+    ".svn",
+    "node_modules",
+    "target",
+    "__pycache__",
+    ".DS_Store",
+    "Thumbs.db",
+    "desktop.ini",
+    
+    # SECURITY-SENSITIVE DIRECTORIES (CRITICAL EXCLUSIONS)
+    # SSH keys and certificates - NEVER scan these!
+    ".ssh",
+    "ssh",
+    ".gnupg",
+    ".pgp",
+    
+    # Browser data containing cookies, passwords, tokens
+    "Google/Chrome",
+    "Mozilla/Firefox",
+    "Microsoft/Edge",
+    "Safari",
+    "Brave",
+    "Opera",
+    "Application Support/Google",
+    "Application Support/Mozilla",
+    "Application Support/Safari",
+    "Application Support/Brave",
+    
+    # Password managers and credential stores
+    "1Password",
+    "LastPass",
+    "Bitwarden",
+    "KeePass",
+    "Keychain",
+    "Keychains",
+    "Application Support/1Password",
+    "Application Support/LastPass",
+    "Application Support/Bitwarden",
+    
+    # Windows credential directories
+    "Microsoft/Credentials",
+    "Microsoft/Crypto",
+    "Microsoft/SystemCertificates",
+    "Microsoft/Protect",
+    "Roaming/Microsoft/Credentials",
+    "Local/Microsoft/Credentials",
+    
+    # Email and communication apps
+    "Microsoft/Outlook",
+    "Mail",
+    "Thunderbird",
+    "Slack",
+    "Discord",
+    "Teams",
+    "WhatsApp",
+    "Telegram",
+    
+    # Development tools with sensitive data
+    ".aws",
+    ".azure",
+    ".gcloud",
+    ".kube",
+    ".docker",
+    ".helm",
+    ".terraform",
+    
+    # VPN and security software
+    ".vpn",
+    "VPN",
+    "Cisco",
+    "OpenVPN",
+    "NordVPN",
+    "ExpressVPN",
+    
+    # IDE and editor sensitive configs
+    ".vscode",
+    ".idea",
+    ".android",
+    ".gradle",
+    
+    # User-specific sensitive paths (auto-generated)
+    "/Users/Ciaran/Library",
+    "/Users/Ciaran/.Trash",
+    "/Users/Ciaran/.npm",
+    "/Users/Ciaran/.cargo",
+    "/Users/Ciaran/.rustup",
+]
+data_extensions = [
+    "txt",
+    "csv",
+    "json",
+    "xml",
+    "xlsx",
+    "docx",
+    "pdf",
+    "sql",
+    "log",
+    "dat",
+    "db",
+    "sqlite",
+    "tsv",
+    "yaml",
+    "yml",
+]
+
+[upload]
+method = "POST"
+batch_size = 100
+
+[upload.headers]
