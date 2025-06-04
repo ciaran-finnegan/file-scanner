@@ -2,10 +2,12 @@ use std::{
     collections::HashMap,
     fs::{self, File},
     io::{BufWriter, Read, Write},
-    os::unix::fs::MetadataExt,
     path::{Path, PathBuf},
     sync::Mutex,
 };
+
+#[cfg(unix)]
+use std::os::unix::fs::MetadataExt;
 
 use base64::Engine as _;
 use ignore::WalkBuilder;
@@ -409,7 +411,12 @@ fn process_file(path: &Path, writer: &Mutex<BufWriter<File>>, config: &ScanConfi
         return Ok(());
     }
     
+    // Get file mode (permissions) - Unix only, default to 0 on Windows
+    #[cfg(unix)]
     let mode = meta.mode();
+    #[cfg(not(unix))]
+    let mode = 0u32;
+    
     let mtime = OffsetDateTime::from(meta.modified()?)
         .format(&Rfc3339)?;
     
